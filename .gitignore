@@ -1,0 +1,12 @@
+
+# Dépendances Node
+node_modules/
+
+# Fichiers de configuration Playwright/
+/playwright-report/
+/test-results
+storageState.json
+.cache/
+
+# Logs
+*.log
