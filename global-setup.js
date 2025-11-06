@@ -4,6 +4,10 @@ const { request } = require('@playwright/test');
 const fs = require('fs');
 
 async function globalSetup(config) {//l'objet config est un argument standard qui est passé par Playwright au moment où il exécute le script globalSetup
+    // 🚨 Lecture des identifiants depuis les variables d'environnement
+    const USERNAME = process.env.BOOKER_USERNAME || 'admin'; // 'admin' est un fallback local
+    const PASSWORD = process.env.BOOKER_PASSWORD || 'password123';
+
     console.log('-> Début du Global Setup : Génération du jeton d\'authentification...');
 
     // 1. Créer une instance de l'API request
@@ -14,8 +18,9 @@ async function globalSetup(config) {//l'objet config est un argument standard qu
     // 2. Requête POST pour obtenir le jeton (token)
     const authResponse = await apiContext.post('/auth', {
         data: {
-            username: 'admin',
-            password: 'password123'
+            //Utilisation des variables sécurisées pour la requête
+            username: USERNAME, // Utilise la variable Jenkins
+            password: PASSWORD  // Utilise la variable Jenkins
         }
     });
 

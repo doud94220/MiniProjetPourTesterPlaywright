@@ -26,6 +26,12 @@ pipeline {
             steps {
                 // 1. Exécuter le test API/Hooks
                 // Ceci déclenche le globalSetup, crée le jeton et exécute shared_data.spec.js
+
+                // Expose les secrets stockés dans Jenkins en tant que variables d'environnement
+                withCredentials([usernamePassword(credentialsId: 'booker-api-creds', 
+                                         passwordVariable: 'BOOKER_PASSWORD', 
+                                         usernameVariable: 'BOOKER_USERNAME')]) {
+                
                 sh 'npx playwright test --project=API_AUTH' 
             }
         }
