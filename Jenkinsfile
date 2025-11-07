@@ -30,9 +30,10 @@ pipeline {
                 // Expose les secrets stockés dans Jenkins en tant que variables d'environnement
                 withCredentials([usernamePassword(credentialsId: 'booker-api-creds', 
                                          passwordVariable: 'BOOKER_PASSWORD', 
-                                         usernameVariable: 'BOOKER_USERNAME')]) {
-                
-                sh 'npx playwright test --project=API_AUTH' 
+                                         usernameVariable: 'BOOKER_USERNAME')
+                ]) {
+                    sh 'npx playwright test --project=API_AUTH' 
+                }
             }
         }
 
