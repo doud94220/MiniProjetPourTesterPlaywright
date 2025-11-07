@@ -15,10 +15,10 @@ pipeline {
             steps {
                 // Utiliser la bonne version de Node.js
                 // NOTE: La configuration exacte dépend du plugin Jenkins Node.js
-                sh 'npm install' 
+                bat 'npm install' 
                 
                 // CRUCIAL : Télécharger les binaires des navigateurs (Chromium, Firefox, WebKit)
-                sh 'npx playwright install --with-deps' 
+                bat 'npx playwright install --with-deps' 
             }
         }
 
@@ -32,7 +32,7 @@ pipeline {
                                          passwordVariable: 'BOOKER_PASSWORD', 
                                          usernameVariable: 'BOOKER_USERNAME')
                 ]) {
-                    sh 'npx playwright test --project=API_AUTH' 
+                    bat 'npx playwright test --project=API_AUTH' 
                 }
             }
         }
@@ -41,7 +41,7 @@ pipeline {
             steps {
                 // 2. Exécuter les tests UI Staging
                 // Ceci utilise l'URL de base : https://the-internet.herokuapp.com
-                sh 'npx playwright test --project=STAGING_UI' 
+                bat 'npx playwright test --project=STAGING_UI' 
             }
         }
 
