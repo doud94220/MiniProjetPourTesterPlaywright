@@ -5,9 +5,11 @@ const { test, expect } = require('@playwright/test');
 test('Vérifier que la navigation utilise l\'URL Staging (Herokuapp)', async ({ page }) => {
     // page.goto('/') va maintenant naviguer vers https://the-internet.herokuapp.com/
     await page.goto('/');
+    console.log("On est sur la page https://the-internet.herokuapp.com");
 
     // Le titre doit contenir le nom du site
     await expect(page).toHaveTitle('The Internet');
+    console.log("Le titre contient bien 'The Internet'");
 
     /*
         Vérifier un élément de la page :
@@ -15,4 +17,5 @@ test('Vérifier que la navigation utilise l\'URL Staging (Herokuapp)', async ({ 
             exact: false: On dit à Playwright que d'autres caractères peuvent suivre le mot "Welcome" (to the-internet, par exemple).
     */
     await expect(page.getByRole('heading', { name: 'Welcome', exact: false })).toBeVisible();
+    console.log("La page contient bien 'Welcome'");
 });
