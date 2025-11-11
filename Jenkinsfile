@@ -33,7 +33,7 @@ pipeline {
                                          usernameVariable: 'BOOKER_USERNAME')
                 ]) {
                     // bat 'npx playwright test --project=API_AUTH'
-                    bat 'npx playwright test e2e/shared_data.spec.js --project=API_AUTH --reporter=html' 
+                    bat 'npx playwright test e2e/shared_data.spec.js --project=API_AUTH --reporter=json,api-results.json' 
                 }
             }
         }
@@ -43,13 +43,20 @@ pipeline {
                 // 2. Exécuter les tests UI Staging
                 // Ceci utilise l'URL de base : https://the-internet.herokuapp.com
                 // bat 'npx playwright test --project=STAGING_UI'
-                bat 'npx playwright test e2e/ui_staging.spec.js --project=STAGING_UI --reporter=html'
+                bat 'npx playwright test e2e/ui_staging.spec.js --project=STAGING_UI --reporter=json,ui-results.json'
             }
         }
 
-        stage('Publish Report') {
+        stage('Merge and Publish Report') {
             // Exécuté même si un test échoue (always())
             steps {
+                // Fusionne les rapports JSON
+                // NOTE: Ceci nécessite le package @playwright/test dans node_modules
+                bat 'npx playwright merge api-results.json ui-results.json --output playwright-report/report.json'
+
+                // Génère le rapport à partir du JSON fusionné, mais le fichier sera converti au format HTML
+                 bat 'npx playwright show-report playwright-report/report.json'
+
                 // Archiver le rapport HTML généré par Playwright
                 archiveArtifacts artifacts: 'playwright-report/**/*', fingerprint: true, allowEmptyArchive: true
                 // Vous pouvez aussi utiliser le plugin Jenkins 'HTML Publisher'
