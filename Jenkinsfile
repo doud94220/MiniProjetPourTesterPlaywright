@@ -43,7 +43,7 @@ pipeline {
                 // 2. Exécuter les tests UI Staging
                 // Ceci utilise l'URL de base : https://the-internet.herokuapp.com
                 // bat 'npx playwright test --project=STAGING_UI'
-                bat 'npx playwright test e2e/shared_data.spec.js --project=STAGING_UI --reporter=html'
+                bat 'npx playwright test e2e/ui_staging.spec.js --project=STAGING_UI --reporter=html'
             }
         }
 
