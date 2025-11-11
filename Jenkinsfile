@@ -33,7 +33,7 @@ pipeline {
                                          usernameVariable: 'BOOKER_USERNAME')
                 ]) {
                     // bat 'npx playwright test --project=API_AUTH'
-                    bat 'npx playwright test e2e/shared_data.spec.js --project=API_AUTH' 
+                    bat 'npx playwright test e2e/shared_data.spec.js --project=API_AUTH --reporter=html' 
                 }
             }
         }
@@ -43,7 +43,7 @@ pipeline {
                 // 2. Exécuter les tests UI Staging
                 // Ceci utilise l'URL de base : https://the-internet.herokuapp.com
                 // bat 'npx playwright test --project=STAGING_UI'
-                bat 'npx playwright test e2e/shared_data.spec.js --project=STAGING_UI'
+                bat 'npx playwright test e2e/shared_data.spec.js --project=STAGING_UI --reporter=html'
             }
         }
 
@@ -51,7 +51,7 @@ pipeline {
             // Exécuté même si un test échoue (always())
             steps {
                 // Archiver le rapport HTML généré par Playwright
-                archiveArtifacts artifacts: 'playwright-report/**/*', fingerprint: true
+                archiveArtifacts artifacts: 'playwright-report/**/*', fingerprint: true, allowEmpty: true
                 // Vous pouvez aussi utiliser le plugin Jenkins 'HTML Publisher'
             }
         }
