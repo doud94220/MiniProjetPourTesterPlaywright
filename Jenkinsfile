@@ -51,7 +51,7 @@ pipeline {
             // Exécuté même si un test échoue (always())
             steps {
                 // Archiver le rapport HTML généré par Playwright
-                archiveArtifacts artifacts: 'playwright-report/**/*', fingerprint: true, allowEmpty: true
+                archiveArtifacts artifacts: 'playwright-report/**/*', fingerprint: true, allowEmptyArchive: true
                 // Vous pouvez aussi utiliser le plugin Jenkins 'HTML Publisher'
             }
         }
