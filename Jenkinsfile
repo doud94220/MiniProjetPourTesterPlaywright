@@ -33,7 +33,7 @@ pipeline {
                                          usernameVariable: 'BOOKER_USERNAME')
                 ]) {
                     // bat 'npx playwright test --project=API_AUTH'
-                    bat 'npx playwright test e2e/shared_data.spec.js --project=API_AUTH --reporter[[json,api-results.json]]' 
+                    bat 'npx playwright test e2e/shared_data.spec.js --project=API_AUTH --reporter=[[json,api-results.json]]' 
                 }
             }
         }
