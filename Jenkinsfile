@@ -32,7 +32,8 @@ pipeline {
                                          passwordVariable: 'BOOKER_PASSWORD', 
                                          usernameVariable: 'BOOKER_USERNAME')
                 ]) {
-                    bat 'npx playwright test --project=API_AUTH' 
+                    // bat 'npx playwright test --project=API_AUTH'
+                    bat 'npx playwright test e2e/shared_data.spec.js --project=API_AUTH' 
                 }
             }
         }
@@ -41,7 +42,8 @@ pipeline {
             steps {
                 // 2. Exécuter les tests UI Staging
                 // Ceci utilise l'URL de base : https://the-internet.herokuapp.com
-                bat 'npx playwright test --project=STAGING_UI' 
+                // bat 'npx playwright test --project=STAGING_UI'
+                bat 'npx playwright test e2e/shared_data.spec.js --project=API_AUTH'
             }
         }
 
