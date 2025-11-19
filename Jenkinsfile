@@ -52,10 +52,12 @@ pipeline {
             steps {
                 // Fusionne les rapports JSON
                 // NOTE: Ceci nécessite le package @playwright/test dans node_modules
-                bat 'npx playwright merge api-results.json ui-results.json --output playwright-report/report.json'
+                // bat 'npx playwright merge api-results.json ui-results.json --output playwright-report/report.json'
+                bat 'node node_modules/@playwright/test/lib/cli.js merge api-results.json ui-results.json --output playwright-report/report.json'
 
                 // Génère le rapport à partir du JSON fusionné, mais le fichier sera converti au format HTML
-                bat 'npx playwright show-report playwright-report/report.json'
+                // bat 'npx playwright show-report playwright-report/report.json'
+                bat 'node node_modules/@playwright/test/lib/cli.js show-report playwright-report/report.json --output playwright-report'
 
                 // Archiver le rapport HTML généré par Playwright
                 archiveArtifacts artifacts: 'playwright-report/**/*', fingerprint: true, allowEmptyArchive: true
