@@ -24,6 +24,8 @@ module.exports = {
                 // 2. Indique au projet de charger le fichier d'état sauvegardé
                 storageState: 'storageState.json',
             },
+            // NOUVEAU : Configuration du reporter pour générer le JSON
+            reporter: [['json', { outputFile: 'api-results.json' }]],
         },
         {
             name: 'STAGING_UI',
@@ -31,6 +33,8 @@ module.exports = {
             use: {
                 baseURL: 'https://the-internet.herokuapp.com', // 🚨 CORRECTION : Utilisation d'une URL de démo UI réelle
             },
+            // NOUVEAU : Configuration du reporter pour générer le JSON
+            reporter: [['json', { outputFile: 'ui-results.json' }]],
         },
     ],
 };
