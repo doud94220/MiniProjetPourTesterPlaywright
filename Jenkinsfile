@@ -51,11 +51,11 @@ pipeline {
             // Exécuté même si un test échoue (always())
             steps {
                 // 1. Créer le dossier temporaire pour les résultats
-                bat 'mkdir merged-results'
+                bat 'if not exist merged-results mkdir merged-results'
 
                 // 2. Déplacer les résultats JSON dans ce dossier
-                bat 'move api-results.json merged-results/'
-                bat 'move ui-results.json merged-results/'
+                bat 'move api-results.json merged-results'
+                bat 'move ui-results.json merged-results'
 
                 // Fusionne les rapports JSON
                 // NOTE: Ceci nécessite le package @playwright/test dans node_modules
@@ -67,7 +67,7 @@ pipeline {
                 // bat 'npx playwright show-report playwright-report/report.json'
                 // bat 'node node_modules/@playwright/test/cli.js show-report playwright-report/report.json --output playwright-report'
                 // bat '.\\node_modules\\.bin\\playwright show-report playwright-report/report.json'
-                bat 'npx playwright show-report merged-results --output playwright-report'
+                bat 'npx playwright show-report merged-results'
 
                 // Archiver le rapport HTML généré par Playwright
                 archiveArtifacts artifacts: 'playwright-report/**/*', fingerprint: true, allowEmptyArchive: true
